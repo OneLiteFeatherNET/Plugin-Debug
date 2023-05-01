@@ -40,3 +40,12 @@ jobs:
         with:
           name: Plugin Debug Archive
           path: build/libs/plugin-debug-*.jar
+      - name: Publish package
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: publishMavenJavaPublicationToMavenRepository
+        env:
+          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingKey: ${{ secrets.PGP_SECRET }}
+          ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.PGP_PASSPHRASE  }}
