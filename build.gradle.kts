@@ -39,6 +39,11 @@ repositories {
 }
 
 dependencies {
+    implementation("net.lingala.zip4j:zip4j:2.11.5")
+    implementation("com.google.code.gson:gson:2.10.1")
+    // Test
+    testImplementation("net.lingala.zip4j:zip4j:2.11.5")
+    testImplementation("com.google.code.gson:gson:2.10.1")
     testImplementation(kotlin("test"))
 }
 
