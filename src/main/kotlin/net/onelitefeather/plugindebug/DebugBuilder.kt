@@ -11,8 +11,6 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.time.Duration
 import kotlin.io.path.fileSize
-import kotlin.io.path.readLines
-import kotlin.io.path.writeLines
 import kotlin.io.path.writeText
 import kotlin.jvm.optionals.getOrNull
 
@@ -20,7 +18,6 @@ class DebugBuilder private constructor(private val uploadServer: String) {
     private val fileToUpload: MutableList<DebugFile> = mutableListOf()
     private var maxPartFileSize: Long = 2_097_152
     private var tempPrefix: String = "plugin-debug"
-    private val cleanIpRegex = PRIVACY_REGEX
     private var maxZipFileSize: Long = 2_097_152
     private var userAgent = "plugin-debug"
     private val gson: Gson = Gson()
@@ -30,16 +27,6 @@ class DebugBuilder private constructor(private val uploadServer: String) {
         .setLenient()
         .create()
 
-    @Throws(IllegalStateException::class)
-    fun enableLatestLogSpigot(): DebugBuilder {
-        val latestLogFile = Path.of("logs", "latest.log")
-        if (latestLogFile.fileSize() >= maxPartFileSize)
-            throw IllegalStateException("Latest log is to big only {} bytes allowed".format(maxPartFileSize))
-        val logFile = Files.createTempFile(tempPrefix, ".log")
-        logFile.writeLines(latestLogFile.readLines().map { it.replace(cleanIpRegex, "*") })
-        fileToUpload.add(DebugFile(logFile, FileType.LOG, "Latest Log"))
-        return this
-    }
 
     fun addFile(file: DebugFile): DebugBuilder {
         fileToUpload.add(file)
