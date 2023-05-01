@@ -2,7 +2,7 @@ import org.ajoberstar.grgit.Grgit
 import java.util.*
 
 plugins {
-    kotlin("jvm") version "1.8.20"
+    kotlin("jvm") version "1.8.21"
     `java-library`
     `maven-publish`
     signing
@@ -34,7 +34,7 @@ dependencies {
     compileOnly(rootProject)
     compileOnly("io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT")
     implementation("io.papermc:paperlib:1.0.8")
-    testImplementation(platform("org.junit:junit-bom:5.9.1"))
+    testImplementation(platform("org.junit:junit-bom:5.9.3"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
