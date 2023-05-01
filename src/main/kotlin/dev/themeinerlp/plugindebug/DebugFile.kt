@@ -1,4 +1,4 @@
-package net.onelitefeather.plugindebug
+package dev.themeinerlp.plugindebug
 
 import java.nio.file.Path
 

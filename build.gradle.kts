@@ -18,7 +18,7 @@ if (!File("$rootDir/.git").exists()) {
     ).also { System.exit(1) }
 }
 
-group = "net.onelitefeather"
+group = "dev.themeinerlp"
 var baseVersion by extra("1.0.0")
 var extension by extra("")
 var snapshot by extra("-SNAPSHOT")

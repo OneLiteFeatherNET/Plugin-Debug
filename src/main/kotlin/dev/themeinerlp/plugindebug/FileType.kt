@@ -1,4 +1,4 @@
-package net.onelitefeather.plugindebug
+package dev.themeinerlp.plugindebug
 
 enum class FileType {
     LOG,

@@ -1,4 +1,4 @@
-package net.onelitefeather.plugindebug
+package dev.themeinerlp.plugindebug
 
 import com.google.gson.Gson
 import com.google.gson.JsonArray

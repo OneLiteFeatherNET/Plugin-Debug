@@ -1,10 +1,9 @@
 @file:JvmName("BukkitExtension")
-package net.onelitefeather.plugindebug
+package dev.themeinerlp.plugindebug
 
 import io.papermc.lib.PaperLib
 import org.bukkit.Bukkit
 import org.bukkit.configuration.file.YamlConfiguration
-import org.bukkit.plugin.java.JavaPlugin
 import java.lang.management.ManagementFactory
 import java.nio.file.Files
 import java.nio.file.Path
