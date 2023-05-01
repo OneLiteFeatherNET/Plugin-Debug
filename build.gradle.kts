@@ -87,7 +87,7 @@ publishing {
             from(components.findByName("java"))
             groupId = "dev.themeinerlp"
             artifactId = "plugin-debug"
-            version = rootProject.version.toString()
+            version = "%s%s".format(Locale.ROOT, baseVersion, snapshot)
             artifact(dokkaJavadocJar)
             artifact(dokkaHtmlJar)
             artifact(sourceJar)
