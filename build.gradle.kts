@@ -54,6 +54,23 @@ tasks {
     test {
         useJUnitPlatform()
     }
+    dokkaHtml {
+        dokkaSourceSets {
+            named("main") {
+                moduleName.set("Plugin Debug")
+                includes.from("module.md")
+            }
+        }
+    }
+    dokkaJavadoc {
+        dokkaSourceSets {
+            named("main") {
+                moduleName.set("Plugin Debug")
+                includes.from("module.md")
+
+            }
+        }
+    }
 }
 
 kotlin {

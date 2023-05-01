@@ -1,3 +1,4 @@
+@file:JvmName("Constants")
 package dev.themeinerlp.plugindebug
 
 val PRIVACY_REGEX =

@@ -14,6 +14,13 @@ import kotlin.io.path.fileSize
 import kotlin.io.path.writeText
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Simple builder to collect debug files and upload them to a custom bytebin server
+ * Ex:
+ * <pre class="prettyprint">
+ *     DebugBuilder.builder("https://bytebin.lucko.me/")...
+ * </pre>
+ */
 class DebugBuilder private constructor(private val uploadServer: String) {
     private val fileToUpload: MutableList<DebugFile> = mutableListOf()
     private var maxPartFileSize: Long = 2_097_152
@@ -27,12 +34,19 @@ class DebugBuilder private constructor(private val uploadServer: String) {
         .setLenient()
         .create()
 
-
+    /**
+     * Add a debug file RAW into the debug zip
+     */
     fun addFile(file: DebugFile): DebugBuilder {
         fileToUpload.add(file)
         return this
     }
-
+    /**
+     * Add a debug file RAW into the debug zip
+     * @param filePath to collect into the zip
+     * @param fileType to display in the frontend
+     * @param uiTabName to display tn the frontend
+     */
     fun addFile(
         filePath: Path,
         fileType: FileType,
@@ -42,28 +56,45 @@ class DebugBuilder private constructor(private val uploadServer: String) {
         return this
     }
 
-
+    /**
+     * Add a text as a file into the debug zip
+     * @param text to collect into the zip
+     * @param uiTabName to display tn the frontend
+     */
     fun addText(text: String, uiTabName: String): DebugBuilder {
         val textFile = Files.createTempFile(tempPrefix, ".txt")
         textFile.writeText(text)
         fileToUpload.add(DebugFile(textFile, FileType.TEXT, uiTabName))
         return this
     }
-
+    /**
+     * Add a json string as a file into the debug zip
+     * @param json to collect into the zip
+     * @param uiTabName to display tn the frontend
+     */
     fun addJson(json: String, uiTabName: String): DebugBuilder {
         val textFile = Files.createTempFile(tempPrefix, ".json")
         textFile.writeText(json)
         fileToUpload.add(DebugFile(textFile, FileType.JSON, uiTabName))
         return this
     }
-
-    fun addYAML(json: String, uiTabName: String): DebugBuilder {
+    /**
+     * Add a yaml string as a file into the debug zip
+     * @param yaml to collect into the zip
+     * @param uiTabName to display tn the frontend
+     */
+    fun addYAML(yaml: String, uiTabName: String): DebugBuilder {
         val textFile = Files.createTempFile(tempPrefix, ".yml")
-        textFile.writeText(json)
+        textFile.writeText(yaml)
         fileToUpload.add(DebugFile(textFile, FileType.YAML, uiTabName))
         return this
     }
-
+    /**
+     * Upload all collected files in a zip with a debug.json to a custom bytebin server.
+     * @throws IllegalStateException when the zip file is bigger than 2mb(binary)
+     * @throws IllegalStateException when no code was returned
+     * @return an object with the given server and the uploaded code
+     */
     @Throws(IllegalStateException::class)
     fun upload(): DebugUploadResult {
         val tempFolder = Files.createTempDirectory(tempPrefix)
@@ -95,6 +126,10 @@ class DebugBuilder private constructor(private val uploadServer: String) {
     }
 
     companion object {
+        /**
+         * Creates a builder instance with the given bytebin server
+         * @param uploadServer bytebin server base url
+         */
         @JvmStatic
         fun builder(uploadServer: String): DebugBuilder = DebugBuilder(uploadServer)
     }
