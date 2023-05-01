@@ -2,7 +2,7 @@ import org.ajoberstar.grgit.Grgit
 import java.util.*
 
 plugins {
-    kotlin("jvm") version "1.8.20"
+    kotlin("jvm") version "1.8.21"
     id("org.ajoberstar.grgit") version "5.2.0"
     `java-library`
     `maven-publish`
