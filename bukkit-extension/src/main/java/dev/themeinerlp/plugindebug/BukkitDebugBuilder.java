@@ -14,6 +14,9 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
+/**
+ * Bukkit Debug builder
+ */
 public final class BukkitDebugBuilder extends DebugBuilder<BukkitDebugBuilder> {
 
     private Pattern privacyRegex = Pattern.compile("\\b(1?[0-9]{1,2}|2[0-4][0-9]|25[0-5])\\.(1?[0-9]{1,2}|2[0-4][0-9]|25[0-5])\\.(1?[0-9]{1,2}|2[0-4][0-9]|25[0-5])\\.(1?[0-9]{1,2}|2[0-4][0-9]|25[0-5])\\b");
