@@ -1,5 +1,9 @@
 # Plugin Debug
 
+[![javadoc](https://javadoc.io/badge2/dev.themeinerlp/plugin-debug/javadoc.svg)](https://javadoc.io/doc/dev.themeinerlp/plugin-debug)
+![GitHub issues](https://img.shields.io/github/issues/OneLiteFeatherNET/Plugin-Debug)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/OneLiteFeatherNET/Plugin-Debug)
+
 ## Description
 Plugin Debug is a simple and modern library for collect some debug information of your plugin.  
 This library is inspired by Debug Paste of @IntellectualSites
