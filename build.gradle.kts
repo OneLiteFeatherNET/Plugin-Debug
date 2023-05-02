@@ -2,12 +2,11 @@ import org.ajoberstar.grgit.Grgit
 import java.util.*
 
 plugins {
-    kotlin("jvm") version "1.8.21"
+    java
     id("org.ajoberstar.grgit") version "5.2.0"
     `java-library`
     `maven-publish`
     signing
-    id("org.jetbrains.dokka") version "1.8.10"
 }
 
 if (!File("$rootDir/.git").exists()) {
@@ -22,7 +21,7 @@ if (!File("$rootDir/.git").exists()) {
 }
 
 group = "dev.themeinerlp"
-var baseVersion by extra("1.0.0")
+var baseVersion by extra("1.1.0")
 var extension by extra("")
 var snapshot by extra("-SNAPSHOT")
 
@@ -44,61 +43,18 @@ repositories {
 dependencies {
     implementation("net.lingala.zip4j:zip4j:2.11.5")
     implementation("com.google.code.gson:gson:2.10.1")
-    // Test
-    testImplementation("net.lingala.zip4j:zip4j:2.11.5")
-    testImplementation("com.google.code.gson:gson:2.10.1")
-    testImplementation(kotlin("test"))
 }
 
 tasks {
     test {
         useJUnitPlatform()
     }
-    dokkaHtml {
-        dokkaSourceSets {
-            named("main") {
-                moduleName.set("Plugin Debug")
-                includes.from("module.md")
-                description = "A simple library to upload plugin debugs"
-                version = "%s%s".format(Locale.ROOT, baseVersion, snapshot)
-            }
-        }
-    }
-    dokkaJavadoc {
-        dokkaSourceSets {
-            named("main") {
-                moduleName.set("Plugin Debug")
-                description = "A simple library to upload plugin debugs"
-                includes.from("module.md")
-                version = "%s%s".format(Locale.ROOT, baseVersion, snapshot)
-            }
-        }
-    }
 }
 
-kotlin {
-    jvmToolchain(17)
-    sourceSets.all {
-        languageSettings {
-            languageVersion = "2.0"
-        }
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
-}
-
-val sourceJar by tasks.register<Jar>("kotlinJar") {
-    from(sourceSets.main.get().allSource)
-    archiveClassifier.set("sources")
-}
-val dokkaJavadocJar by tasks.register<Jar>("dokkaHtmlJar") {
-    dependsOn(rootProject.tasks.dokkaHtml)
-    from(rootProject.tasks.dokkaHtml.flatMap { it.outputDirectory })
-    archiveClassifier.set("html-docs")
-}
-
-val dokkaHtmlJar by tasks.register<Jar>("dokkaJavadocJar") {
-    dependsOn(rootProject.tasks.dokkaJavadoc)
-    from(rootProject.tasks.dokkaJavadoc.flatMap { it.outputDirectory })
-    archiveClassifier.set("javadoc")
 }
 
 publishing {
@@ -108,9 +64,6 @@ publishing {
             groupId = "dev.themeinerlp"
             artifactId = "plugin-debug"
             version = "%s%s".format(Locale.ROOT, baseVersion, snapshot)
-            artifact(dokkaJavadocJar)
-            artifact(dokkaHtmlJar)
-            artifact(sourceJar)
             pom {
                 name.set("Plugin debug")
                 description.set("A simple library to upload plugin debugs")
