@@ -33,9 +33,9 @@ dependencies {
 ```
 </details>
 <details>
-<summary><strong>Gradle</strong></summary>
+<summary><strong>Kotlin DSL</strong></summary>
 
-```kt
+```kotlin
 dependencies {
     // Core
     implementation("dev.themeinerlp:plugin-debug:1.1.0")
