@@ -59,6 +59,8 @@ tasks {
             named("main") {
                 moduleName.set("Plugin Debug")
                 includes.from("module.md")
+                description = "A simple library to upload plugin debugs"
+                version = "%s%s".format(Locale.ROOT, baseVersion, snapshot)
             }
         }
     }
@@ -66,8 +68,9 @@ tasks {
         dokkaSourceSets {
             named("main") {
                 moduleName.set("Plugin Debug")
+                description = "A simple library to upload plugin debugs"
                 includes.from("module.md")
-
+                version = "%s%s".format(Locale.ROOT, baseVersion, snapshot)
             }
         }
     }

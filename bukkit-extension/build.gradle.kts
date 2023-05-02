@@ -42,6 +42,25 @@ tasks {
     test {
         useJUnitPlatform()
     }
+
+    dokkaHtml {
+        dokkaSourceSets {
+            named("main") {
+                moduleName.set("Plugin Debug Bukkit Extension")
+                description = "Extends the main api with some nice features for bukkit"
+                version = "%s%s".format(Locale.ROOT, baseVersion, snapshot)
+            }
+        }
+    }
+    dokkaJavadoc {
+        dokkaSourceSets {
+            named("main") {
+                moduleName.set("Plugin Debug Bukkit Extension")
+                description = "Extends the main api with some nice features for bukkit"
+                version = "%s%s".format(Locale.ROOT, baseVersion, snapshot)
+            }
+        }
+    }
 }
 
 kotlin {
@@ -81,7 +100,7 @@ publishing {
             artifact(sourceJar)
             pom {
                 name.set("Bukkit Extension")
-                description.set("The extension for bukkit/paper/spigot fir plugin debug")
+                description.set("The extension for bukkit/paper/spigot for plugin debug")
                 url.set("https://github.com/OneLiteFeatherNET/Plugin-Debug")
                 licenses {
                     license {
