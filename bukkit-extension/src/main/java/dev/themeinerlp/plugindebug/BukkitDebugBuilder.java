@@ -47,7 +47,7 @@ public final class BukkitDebugBuilder extends DebugBuilder<BukkitDebugBuilder> {
     public BukkitDebugBuilder defaultPaperDebugInformation() throws IOException {
         var tempLogFile = Files.createTempFile(tempFile, ".yaml");
         var plugins = Arrays.asList(Bukkit.getServer().getPluginManager().getPlugins());
-        plugins.sort(this::sortPluginABC);
+        plugins.sort(this::sortPluginByName);
         var debugInformation = new YamlConfiguration();
         debugInformation.set("server.version", Bukkit.getVersion());
         debugInformation.set("server.plugins", plugins.size());
@@ -85,7 +85,7 @@ public final class BukkitDebugBuilder extends DebugBuilder<BukkitDebugBuilder> {
         return this;
     }
 
-    private int sortPluginABC(@NotNull Plugin A, @NotNull Plugin B) {
+    private int sortPluginByName(@NotNull Plugin A, @NotNull Plugin B) {
         return A.getName().compareTo(B.getName());
     }
 
