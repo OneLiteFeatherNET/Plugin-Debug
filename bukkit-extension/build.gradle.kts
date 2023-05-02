@@ -2,15 +2,14 @@ import org.ajoberstar.grgit.Grgit
 import java.util.*
 
 plugins {
-    kotlin("jvm") version "1.8.21"
+    java
     `java-library`
     `maven-publish`
     signing
-    id("org.jetbrains.dokka") version "1.8.10"
 }
 
 group = "dev.themeinerlp"
-var baseVersion by extra("1.0.0")
+var baseVersion by extra("1.1.0")
 var extension by extra("")
 var snapshot by extra("-SNAPSHOT")
 
@@ -34,8 +33,6 @@ dependencies {
     compileOnly(rootProject)
     compileOnly("io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT")
     implementation("io.papermc:paperlib:1.0.8")
-    testImplementation(platform("org.junit:junit-bom:5.9.3"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
 tasks {
@@ -43,49 +40,12 @@ tasks {
         useJUnitPlatform()
     }
 
-    dokkaHtml {
-        dokkaSourceSets {
-            named("main") {
-                moduleName.set("Plugin Debug Bukkit Extension")
-                description = "Extends the main api with some nice features for bukkit"
-                version = "%s%s".format(Locale.ROOT, baseVersion, snapshot)
-            }
-        }
-    }
-    dokkaJavadoc {
-        dokkaSourceSets {
-            named("main") {
-                moduleName.set("Plugin Debug Bukkit Extension")
-                description = "Extends the main api with some nice features for bukkit"
-                version = "%s%s".format(Locale.ROOT, baseVersion, snapshot)
-            }
-        }
-    }
-}
 
-kotlin {
-    jvmToolchain(17)
-    sourceSets.all {
-        languageSettings {
-            languageVersion = "2.0"
-        }
+}
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
-}
-
-val sourceJar by tasks.register<Jar>("kotlinJar") {
-    from(sourceSets.main.get().allSource)
-    archiveClassifier.set("sources")
-}
-val dokkaJavadocJar by tasks.register<Jar>("dokkaHtmlJar") {
-    dependsOn(rootProject.tasks.dokkaHtml)
-    from(rootProject.tasks.dokkaHtml.flatMap { it.outputDirectory })
-    archiveClassifier.set("html-docs")
-}
-
-val dokkaHtmlJar by tasks.register<Jar>("dokkaJavadocJar") {
-    dependsOn(rootProject.tasks.dokkaJavadoc)
-    from(rootProject.tasks.dokkaJavadoc.flatMap { it.outputDirectory })
-    archiveClassifier.set("javadoc")
 }
 
 publishing {
@@ -95,9 +55,6 @@ publishing {
             groupId = "dev.themeinerlp.plugin-debug"
             artifactId = "bukkit-extension"
             version = "%s%s".format(Locale.ROOT, baseVersion, snapshot)
-            artifact(dokkaJavadocJar)
-            artifact(dokkaHtmlJar)
-            artifact(sourceJar)
             pom {
                 name.set("Bukkit Extension")
                 description.set("The extension for bukkit/paper/spigot for plugin debug")
