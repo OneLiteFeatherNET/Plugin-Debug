@@ -99,6 +99,11 @@ public class DebugBuilder<T extends DebugBuilder<T>> {
         return (T) this;
     }
 
+    /**
+     * Upload the debug to bytebin server
+     * @return an object with bytebin server address and upload code
+     * @throws IOException throws when java don't have access to temp dir
+     */
     public DebugUploadResult upload() throws IOException {
         var tempFolder = Files.createTempDirectory(tempFile);
         var zipFile = tempFolder.resolve("debug.zip");
