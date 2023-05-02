@@ -60,7 +60,7 @@ public class DebugBuilder<T extends DebugBuilder<T>> {
      * @param text      to collect into the zip
      * @param uiTabName to display tn the frontend
      */
-    public T addTest(String text, String uiTabName) throws IOException {
+    public T addText(String text, String uiTabName) throws IOException {
         var textFile = Files.createTempFile(tempFile, ".txt");
         try (OutputStreamWriter writer = new OutputStreamWriter(Files.newOutputStream(textFile))) {
             writer.append(text);
