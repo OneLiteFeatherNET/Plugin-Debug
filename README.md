@@ -6,7 +6,8 @@
 
 ## Description
 Plugin Debug is a simple and modern library for collect some debug information of your plugin.  
-This library is inspired by Debug Paste of @IntellectualSites
+This library is inspired by Debug Paste of @IntellectualSites [IntellectualSites](https://github.com/IntellectualSites)  
+As a backend we use from lucko [bytebin](https://github.com/lucko/bytebin) service to host/upload the debug files
 
 ## Motivation
 We maintain now more than one plugin/software plugin in java. Now it's time to build an api/library to help us to provide better support for users there use our plugins. 
@@ -37,30 +38,38 @@ dependencies {
 ```kt
 dependencies {
     // Core
-    implementation("dev.themeinerlp:plugin-debug:1.0.0")
+    implementation("dev.themeinerlp:plugin-debug:1.1.0")
     // Bukkit Extension
-    implementation("dev.themeinerlp.plugin-debug:bukkit-extension:1.0.0")
+    implementation("dev.themeinerlp.plugin-debug:bukkit-extension:1.1.0")
 }
 ```
 </details>
 
-Example code(Kotlin):
+### Example
+
+We have an example [gradle module](example) with an example bukkit command to retrieve a debug log.
+Also, we provide already a pre-hosted web ui for view your logs.
+
+The hosted ui follows this structure:
+```
+https://debugpaste.onelitefeather.net/#/BYTEBIN_CODE/ENCODED_URL/
+```
+* BYTEBIN_CODE
+  * The returned code from ByteBin Server when the upload is successfully
+* ENCODED_URL
+  * The ByteBin Server URL encoded in a friendly style
+
+---
+### Example code(Kotlin):
 ```kt
-// Example json object
+// Example json object from GSON LIB
 val obj = JsonObject()
 obj.addProperty("Test", "Test")
 
 val result =
     DebugBuilder.builder(BYTEBIN_BASE_URL)
-        // For this is the bukkit extension required 
-        .enableLatestLogSpigot() // Adds the paper last log
-        .defaultPaperDebugInformation() // Adds as a parseable yaml format some system relevant information from bukkit
         // Adds a file from path wrapped in a placeholder object
-        .addFile(DebugFile(attollo.dataFolder.toPath().resolve("config.yml"),FileType.YAML,"Config as file object"))
-        // Adds a file from path
-        .addFile(attollo.dataFolder.toPath().resolve("config.yml"),FileType.YAML,"Config as file")
-        // Add yaml formatted string to the debug
-        .addYAML(attollo.config.saveToString(), "Config")
+        .addFile(DebugFile(Path.of("config", "config.yml"), FileType.YAML, "Config as file object"))
         // Add a simple text to the debug
         .addText("Text test", "Text test")
         // Add json formatted string to the debug
@@ -76,19 +85,5 @@ val encodedUrl = URLEncoder.encode(
 val code = result.code
 // Prettified url 
 val openUrl = "https://debugpaste.onelitefeather.net/#/$code/$encodedUrl/"
-val component = MiniMessage.miniMessage().deserialize("<#05b9ff>[Attollo] <yellow><click:OPEN_URL:'$openUrl'>Click <u>here</u> to open the debug paste</click>")
-```
-**For better formatting we used mini message also the two lines `enableLatestLogSpigot()` and `defaultPaperDebugInformation()` requires the Bukkit Extension.**
-
-Example for java 
-```java
-var obj = new JsonObject();
-obj.addProperty("Test", "Test");
-
-var builder = DebugBuilder.builder(BYTEBIN_BASE_URL);
-builder = enableLatestLogSpigot(builder);
-builder = defaultPaperDebugInformation(builder);
-builder.addFile(new DebugFile(Path.of(""), FileType.YAML, "Config as file object"))
-        .addFile(Path.of(""), FileType.YAML, "Config as file");
-var result = builder.upload();
+val component = MiniMessage.miniMessage().deserialize("<#05b9ff>[Example] <yellow><click:OPEN_URL:'$openUrl'>Click <u>here</u> to open the debug paste</click>")
 ```
