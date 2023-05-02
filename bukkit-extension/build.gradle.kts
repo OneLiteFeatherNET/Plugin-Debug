@@ -39,8 +39,8 @@ tasks {
     test {
         useJUnitPlatform()
     }
-
-
+    withJavadocJar()
+    withSourcesJar()
 }
 java {
     toolchain {
