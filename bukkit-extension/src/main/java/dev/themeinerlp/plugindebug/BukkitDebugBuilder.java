@@ -5,7 +5,6 @@ import io.papermc.paper.datapack.Datapack;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -14,7 +13,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public final class BukkitDebugBuilder extends DebugBuilder<BukkitDebugBuilder> {
 
@@ -39,6 +37,12 @@ public final class BukkitDebugBuilder extends DebugBuilder<BukkitDebugBuilder> {
         addFile(tempLogFile, FileType.LOG, "Latest Log");
         return this;
     }
+
+    /**
+     * Collects default paper debug information
+     * @return the bukkit builder
+     * @throws IOException if the file empty/null
+     */
 
     public BukkitDebugBuilder defaultPaperDebugInformation() throws IOException {
         var tempLogFile = Files.createTempFile(tempFile, ".yaml");
