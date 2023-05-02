@@ -1,14 +1,14 @@
-package dev.themeinerlp.plugindebug
+package dev.themeinerlp.plugindebug;
 
 /**
  * File type for parsing in the frontend
  */
-enum class FileType {
+public enum FileType {
     LOG,
     YAML,
     HOCON,
     JSON,
     BINARY,
     RAW,
-    TEXT
+    TEXT;
 }
