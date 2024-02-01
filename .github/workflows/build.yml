@@ -28,7 +28,7 @@ jobs:
       - name: Clean Build
         run: ./gradlew clean build --no-daemon
       - name: Publish package
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
         with:
           arguments: publishAllPublicationsToMavenRepository
         env:
