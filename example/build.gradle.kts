@@ -21,7 +21,7 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT")
-    implementation("net.kyori:adventure-text-minimessage:4.14.0")
+    implementation("net.kyori:adventure-text-minimessage:4.16.0")
     implementation(project(":bukkit-extension"))
     implementation(rootProject)
 }
