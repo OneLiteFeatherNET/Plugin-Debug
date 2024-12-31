@@ -3,7 +3,7 @@ import java.util.*
 
 plugins {
     java
-    id("org.ajoberstar.grgit") version "5.2.2"
+    id("org.ajoberstar.grgit") version "5.3.0"
     `java-library`
     `maven-publish`
     signing
