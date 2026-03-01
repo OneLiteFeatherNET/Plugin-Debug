@@ -41,7 +41,7 @@ repositories {
 }
 
 dependencies {
-    implementation("net.lingala.zip4j:zip4j:2.11.5")
+    implementation("net.lingala.zip4j:zip4j:2.11.6")
     implementation("com.google.code.gson:gson:2.11.0")
 }
 
