@@ -1,0 +1,19 @@
+name: Build PR
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
+jobs:
+  build:
+    # Shared org build: Temurin toolchain, 3-OS matrix, tests and coverage.
+    uses: OneLiteFeatherNET/workflows/.github/workflows/gradle-build-pr.yml@v2.8.1
+    with:
+      java-version: "17"
+      java-distribution: "temurin"
+      run-tests: false
+    secrets: inherit
