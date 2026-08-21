@@ -6,7 +6,14 @@
   "packages": {
     ".": {
       "package-name": "Plugin-Debug",
-      "changelog-path": "CHANGELOG.md"
+      "changelog-path": "CHANGELOG.md",
+      "extra-files": [
+        {
+          "type": "generic",
+          "path": "build.gradle.kts"
+        }
+      ]
     }
-  }
+  },
+  "bootstrap-sha": "b44ab000b9f8b4b9f60941c6f151057c5489411f"
 }
